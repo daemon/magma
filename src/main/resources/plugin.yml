@@ -1,0 +1,10 @@
+name: magma
+main: net.rocketeer.magma.MagmaPlugin
+version: 0.0.1
+depend: [Vault]
+commands:
+    mm:
+        description: Base command for all Magma-related things. Do /mm help for more information.
+        usage: /mm
+        permission: magma.cmd
+        permission-message: No permission.
