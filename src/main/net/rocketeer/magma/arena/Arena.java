@@ -3,6 +3,11 @@ package net.rocketeer.magma.arena;
 import net.rocketeer.magma.admin.BoundingBox;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
+
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Arena
 {
@@ -10,13 +15,16 @@ public class Arena
   private final BoundingBox _box;
   private final Location _redSpawn;
   private final Location _blueSpawn;
+  private final Set<Player> _players = new HashSet<>();
+  private final BoundingBoxReader _reader;
 
-  public Arena(String name, BoundingBox box, Location redSpawn, Location blueSpawn)
+  private Arena(String name, BoundingBox box, Location redSpawn, Location blueSpawn) throws IOException
   {
     this._name = name;
     this._box = box;
     this._redSpawn = redSpawn;
     this._blueSpawn = blueSpawn;
+    this._reader = new BoundingBoxReader(box, this._name);
   }
 
   public World world()
@@ -42,6 +50,11 @@ public class Arena
   public Location blueSpawn()
   {
     return this._blueSpawn;
+  }
+
+  public Set<Player> players()
+  {
+    return this._players;
   }
 
   public static class Builder
@@ -80,9 +93,11 @@ public class Arena
       return _bbox != null && this._name != null && this._redSpawn != null && this._blueSpawn != null;
     }
 
-    public Arena build()
+    public Arena build() throws IOException
     {
       assert(this.ready());
+      BoundingBoxWriter writer = new BoundingBoxWriter(this._bbox, this._name);
+      writer.write();
       return new Arena(this._name, this._bbox, this._redSpawn, this._blueSpawn);
     }
   }

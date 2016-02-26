@@ -41,9 +41,12 @@ public class ArenaStore
     map.put("x2", box.b.getX());
     map.put("y2", box.b.getY());
     map.put("z2", box.b.getZ());
-    map.put("redSpawnX", box.b.getY());
-    map.put("redSpawnY", box.b.getZ());
-    map.put("redSpawnZ", box.b.getZ());
+    map.put("redSpawnX", arena.redSpawn().getX());
+    map.put("redSpawnY", arena.redSpawn().getY());
+    map.put("redSpawnZ", arena.redSpawn().getZ());
+    map.put("blueSpawnX", arena.blueSpawn().getX());
+    map.put("blueSpawnY", arena.blueSpawn().getY());
+    map.put("blueSpawnZ", arena.blueSpawn().getZ());
     this._config.set(arena.name(), null);
     this._config.createSection(arena.name(), map);
     MagmaPlugin.instance.saveConfig();

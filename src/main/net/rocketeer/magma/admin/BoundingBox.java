@@ -1,6 +1,9 @@
 package net.rocketeer.magma.admin;
 
+import net.rocketeer.magma.MagmaPlugin;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.util.Vector;
 
 public class BoundingBox implements Iterable<Location>
@@ -66,6 +69,11 @@ public class BoundingBox implements Iterable<Location>
     return true;
   }
 
+  public String toString()
+  {
+    return this.a.toString() + ", " + this.b.toString();
+  }
+
   public class Iterator implements java.util.Iterator<Location>
   {
     private Location current = a.clone();
@@ -90,18 +98,18 @@ public class BoundingBox implements Iterable<Location>
     @Override
     public Location next()
     {
-      if (Math.abs((a.getX() + x * dVec[0]) - b.getX()) < 1)
+      if ((int) a.getX() + this.x * this.dVec[0] == (int) b.getX() + this.dVec[0])
       {
-        x = 0;
-        ++y;
-      } else if (Math.abs((a.getY() + y * dVec[1]) - b.getY()) < 1)
+        this.x = 0;
+        ++this.y;
+      } else if ((int) a.getY() + this.y * this.dVec[1] == (int) b.getY() + this.dVec[1])
       {
-        x = 0;
-        y = 0;
-        ++z;
+        this.x = 0;
+        this.y = 0;
+        ++this.z;
       }
 
-      return (current = a.clone().add(x++ * dVec[0], y * dVec[1], z * dVec[2]));
+      return (current = a.clone().add(this.x++ * this.dVec[0], this.y * this.dVec[1], this.z * this.dVec[2]));
     }
   }
 }

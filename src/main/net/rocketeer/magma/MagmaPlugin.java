@@ -4,6 +4,7 @@ import net.rocketeer.magma.admin.BoundingBoxRegistry;
 import net.rocketeer.magma.admin.NewArenaCommand;
 import net.rocketeer.magma.admin.SetSpawnCommand;
 import net.rocketeer.magma.arena.ArenaStore;
+import net.rocketeer.magma.weapon.SnowballHitListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -23,6 +24,7 @@ public class MagmaPlugin extends JavaPlugin
     base.registerCommand("pos2", bbRegistry.new Pos2Command());
     base.registerCommand("newarena", new NewArenaCommand(this.getConfig(), bbRegistry));
     base.registerCommand("setspawn", new SetSpawnCommand(as));
+    Bukkit.getPluginManager().registerEvents(new SnowballHitListener(), this);
   }
 
   @Override
