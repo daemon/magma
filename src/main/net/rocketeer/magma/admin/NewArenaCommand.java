@@ -61,7 +61,7 @@ public class NewArenaCommand implements SubCommandExecutor
     Arena.Builder builder = new Arena.Builder();
     builder.boundingBox(box).name(strings[1]);
     ArenaStore.playerToArenaBuilder.put(p, builder);
-    p.sendMessage(MessageAlertColor.NOTIFY_SUCCESS + "Arena created and selected! Remember, it won't save until you add red and blue spawnpoints.");
+    p.sendMessage(MessageAlertColor.NOTIFY_SUCCESS + "In-progress arena created and selected! Remember, it won't save until you register red and blue spawnpoints.");
     return true;
   }
 }

@@ -16,15 +16,13 @@ public class Arena
   private final Location _redSpawn;
   private final Location _blueSpawn;
   private final Set<Player> _players = new HashSet<>();
-  private final BoundingBoxReader _reader;
 
-  private Arena(String name, BoundingBox box, Location redSpawn, Location blueSpawn) throws IOException
+  Arena(String name, BoundingBox box, Location redSpawn, Location blueSpawn)
   {
     this._name = name;
     this._box = box;
     this._redSpawn = redSpawn;
     this._blueSpawn = blueSpawn;
-    this._reader = new BoundingBoxReader(box, this._name);
   }
 
   public World world()
@@ -50,6 +48,16 @@ public class Arena
   public Location blueSpawn()
   {
     return this._blueSpawn;
+  }
+
+  BoundingBoxReader createReader() throws IOException
+  {
+    return new BoundingBoxReader(this._box, this._name);
+  }
+
+  BoundingBoxWriter createWriter() throws IOException
+  {
+    return new BoundingBoxWriter(this._box, this._name);
   }
 
   public Set<Player> players()
@@ -96,8 +104,6 @@ public class Arena
     public Arena build() throws IOException
     {
       assert(this.ready());
-      BoundingBoxWriter writer = new BoundingBoxWriter(this._bbox, this._name);
-      writer.write();
       return new Arena(this._name, this._bbox, this._redSpawn, this._blueSpawn);
     }
   }

@@ -3,8 +3,8 @@ main: net.rocketeer.magma.MagmaPlugin
 version: 0.0.1
 depend: [Vault]
 commands:
-    mm:
-        description: Base command for all Magma-related things. Do /mm help for more information.
-        usage: /mm
+    mgm:
+        description: Base command for all Magma-related things.
+        usage: /mgm
         permission: magma.cmd
         permission-message: No permission.

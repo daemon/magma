@@ -26,7 +26,7 @@ public class BaseCommand implements CommandExecutor
     builder.addHelp("mgm pos1", "Sets one corner of a selection box.");
     builder.addHelp("mgm pos2", "Sets other corner of a selection box.");
     builder.addHelp("mgm newarena", "Creates an arena from the selection box.");
-    builder.addHelp("mgm select", "Select an arena.");
+    builder.addHelp("mgm reset", "Reset an arena to its original state.");
     builder.addHelp("mgm delete", "Delete an arena.");
     builder.addHelp("mgm setspawn", "Sets a team's spawnpoint.");
     this._helpPages = builder.toPages();

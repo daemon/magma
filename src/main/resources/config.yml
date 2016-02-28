@@ -1,0 +1,15 @@
+arenas:
+  example-arena:
+    x1: 0
+    y1: 0
+    z1: 0
+    x2: 0
+    y2: 0
+    y3: 0
+    redSpawnX: 0
+    redSpawnY: 0
+    redSpawnZ: 0
+    blueSpawnX: 0
+    blueSpawnY: 0
+    blueSpawnZ: 0
+    world: world

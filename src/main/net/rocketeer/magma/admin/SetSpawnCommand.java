@@ -4,9 +4,12 @@ import net.rocketeer.magma.SubCommandExecutor;
 import net.rocketeer.magma.arena.Arena;
 import net.rocketeer.magma.arena.ArenaStore;
 import net.rocketeer.magma.message.MessageAlertColor;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.io.IOException;
 
 public class SetSpawnCommand implements SubCommandExecutor
 {
@@ -58,7 +61,17 @@ public class SetSpawnCommand implements SubCommandExecutor
     else
       p.sendMessage(MessageAlertColor.NOTIFY_SUCCESS + "Set blue spawnpoint.");
     if (builder.ready())
-      this._store.save(builder.build());
+      try
+      {
+        Arena arena = builder.build();
+        this._store.save(arena);
+        this._store.register(arena);
+        p.sendMessage(MessageAlertColor.NOTIFY_SUCCESS + "Created new arena " + ChatColor.GREEN + arena.name());
+      } catch (IOException e)
+      {
+        e.printStackTrace();
+        p.sendMessage(MessageAlertColor.ERROR + "Couldn't save arena to plugin folder! Do you have permission?");
+      }
     return true;
   }
 }

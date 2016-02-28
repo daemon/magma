@@ -17,7 +17,11 @@ public class Paintball
 
   enum Color
   {
-    RED(Material.STAINED_CLAY, (byte) 14), BLUE(Material.STAINED_CLAY, (byte) 11);
+    RED(Material.STAINED_CLAY, (byte) 14),
+    ORANGE(Material.STAINED_CLAY, (byte) 1),
+    YELLOW(Material.STAINED_CLAY, (byte) 4),
+    WHITE(Material.STAINED_CLAY, (byte) 0),
+    BLUE(Material.STAINED_CLAY, (byte) 11);
     public final Material material;
     public final byte data;
 
@@ -31,7 +35,7 @@ public class Paintball
   public Paintball(Location location, Color color)
   {
     this._location = location;
-    this._box = new BoundingBox(location.clone().add(3, 3, 3), location.clone().subtract(3, 3, 3));
+    this._box = new BoundingBox(location.clone().add(4, 4, 4), location.clone().subtract(4, 4, 4));
     this._color = color;
   }
 
@@ -42,10 +46,13 @@ public class Paintball
     for (Location l : this._box)
       if (!locToHeat.containsKey(l))
         locToHeat.put(l, 0.0);
-    locToHeat.put(this._location, 5000.0);
+    locToHeat.put(this._location, 25000.0);
     final int id = Bukkit.getScheduler().scheduleSyncRepeatingTask(MagmaPlugin.instance, () -> {
       Map<Location, Double> locToHeat2 = new HashMap<>();
       locToHeat.forEach((loc, heat) -> {
+        double a = 0.12;
+        if (loc.getBlock().getType() == Material.AIR)
+          a /= 2;
         for (int i = -1; i <= 1; i += 2)
           for (int j = -1; j <= 1; j += 2)
             for (int k = -1; k <= 1; k += 2)
@@ -69,7 +76,7 @@ public class Paintball
         next = loc.clone().add(0, 0, -1);
         heat2 = locToHeat.get(next);
         double ddz = heat1 + heat2 - 2 * heat;
-        double newHeat = heat + 0.12 * (ddx + ddy + ddz);
+        double newHeat = heat + a * (ddx + ddy + ddz);
         locToHeat2.put(loc, newHeat);
       });
 

@@ -2,6 +2,7 @@ package net.rocketeer.magma;
 
 import net.rocketeer.magma.admin.BoundingBoxRegistry;
 import net.rocketeer.magma.admin.NewArenaCommand;
+import net.rocketeer.magma.admin.ResetCommand;
 import net.rocketeer.magma.admin.SetSpawnCommand;
 import net.rocketeer.magma.arena.ArenaStore;
 import net.rocketeer.magma.weapon.SnowballHitListener;
@@ -16,6 +17,7 @@ public class MagmaPlugin extends JavaPlugin
   public void onEnable()
   {
     instance = this;
+    this.saveDefaultConfig();
     BoundingBoxRegistry bbRegistry = new BoundingBoxRegistry();
     ArenaStore as = new ArenaStore(this.getConfig());
     BaseCommand base = new BaseCommand();
@@ -24,6 +26,7 @@ public class MagmaPlugin extends JavaPlugin
     base.registerCommand("pos2", bbRegistry.new Pos2Command());
     base.registerCommand("newarena", new NewArenaCommand(this.getConfig(), bbRegistry));
     base.registerCommand("setspawn", new SetSpawnCommand(as));
+    base.registerCommand("reset", new ResetCommand(as));
     Bukkit.getPluginManager().registerEvents(new SnowballHitListener(), this);
   }
 

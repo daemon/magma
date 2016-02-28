@@ -2,6 +2,7 @@ package net.rocketeer.magma.arena;
 
 import net.rocketeer.magma.MagmaPlugin;
 import net.rocketeer.magma.admin.BoundingBox;
+import org.bukkit.block.Block;
 
 import java.io.*;
 import java.util.zip.GZIPInputStream;
@@ -19,7 +20,7 @@ public class BoundingBoxReader
     this._iterator = this._bbox.iterator();
   }
 
-  public int readIntoWorld(int nBlocks)
+  public int readIntoWorld(int nBlocks) throws IOException
   {
     if (!this._iterator.hasNext())
       return 0;
@@ -27,15 +28,11 @@ public class BoundingBoxReader
     int read = 0;
     while (this._iterator.hasNext() && read < nBlocks)
     {
-      try
-      {
-        int typeId = this._in.readInt();
-        int dv = this._in.readInt();
-        this._iterator.next().getBlock().setTypeId(typeId);
-        this._iterator.next().getBlock().setData((byte) dv);
-      } catch (IOException e) {
-        return read;
-      }
+      int typeId = this._in.readInt();
+      int dv = this._in.readInt();
+      Block block = this._iterator.next().getBlock();
+      block.setTypeId(typeId);
+      block.setData((byte) dv);
       ++read;
     }
 
