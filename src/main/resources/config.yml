@@ -13,3 +13,6 @@ arenas:
     blueSpawnY: 0
     blueSpawnZ: 0
     world: world
+
+messages:
+  game-beginning-msg: "A game of &aMagma &fis starting at &b${arena_name}&f. Do &b/mgm join ${arena_name} &fto play!"

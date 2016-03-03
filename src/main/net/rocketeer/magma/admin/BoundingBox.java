@@ -32,18 +32,27 @@ public class BoundingBox implements Iterable<Location>
     {
       this._facePoints[0] = a;
       this._facePoints[1] = b;
+    } else {
+      this._facePoints[0] = b;
+      this._facePoints[1] = a;
     }
 
     if (this.a.getX() < this.b.getX())
     {
       this._facePoints[2] = a;
       this._facePoints[3] = b;
+    } else {
+      this._facePoints[2] = b;
+      this._facePoints[3] = a;
     }
 
     if (this.a.getZ() < this.b.getZ())
     {
       this._facePoints[4] = a;
       this._facePoints[5] = b;
+    } else {
+      this._facePoints[4] = b;
+      this._facePoints[5] = a;
     }
   }
 

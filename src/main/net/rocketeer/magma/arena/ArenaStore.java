@@ -25,6 +25,27 @@ public class ArenaStore
     this.load();
   }
 
+  public boolean playing(Player player)
+  {
+    for (Arena arena : this._nameToArenas.values())
+      if (arena.players().contains(player))
+        return true;
+    return false;
+  }
+
+  public boolean contains(Location loc, boolean inProgressArenasOnly)
+  {
+    for (Arena arena : this._nameToArenas.values())
+    {
+      if (inProgressArenasOnly && !arena.isInProgress())
+        continue;
+      if (arena.boundingBox().contains(loc))
+        return true;
+    }
+
+    return false;
+  }
+
   public void load()
   {
     Set<String> arenaNames = this._config.getKeys(false);

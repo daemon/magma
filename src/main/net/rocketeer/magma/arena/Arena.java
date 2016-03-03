@@ -15,6 +15,7 @@ public class Arena
   private final BoundingBox _box;
   private final Location _redSpawn;
   private final Location _blueSpawn;
+  private boolean _inProgress = false;
   private final Set<Player> _players = new HashSet<>();
 
   Arena(String name, BoundingBox box, Location redSpawn, Location blueSpawn)
@@ -40,6 +41,11 @@ public class Arena
     return this._name;
   }
 
+  public void setInProgress(boolean inProgress)
+  {
+    this._inProgress = inProgress;
+  }
+
   public Location redSpawn()
   {
     return this._redSpawn;
@@ -48,6 +54,11 @@ public class Arena
   public Location blueSpawn()
   {
     return this._blueSpawn;
+  }
+
+  public boolean isInProgress()
+  {
+    return this._inProgress;
   }
 
   BoundingBoxReader createReader() throws IOException
